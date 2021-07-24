@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int t[101][101],N,M;
+    
+    int solve(int m, int n){
+        
+        if(n==N && m==M){
+            return 1;
+        }
+        
+        if(t[m][n]!=-1){
+            return t[m][n];
+        }
+        
+        if(n==N){
+            return t[m][n] = solve(m+1,n);
+        }
+        if(m==M){
+            return t[m][n] = solve(m,n+1);
+        }
+        
+        return t[m][n]  = solve(m+1, n) + solve(m,n+1);
+        
+        // return t[m][n];
+    }
+    int uniquePaths(int m, int n) {
+        
+        memset(t,-1,sizeof(t));
+        N = n-1;
+        M = m-1;
+        return solve(0,0);
+    }
+};
