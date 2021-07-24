@@ -1,0 +1,36 @@
+class Solution {
+public:
+    // int t[3003];
+    int solve(vector<int> nums){
+        
+        int t[nums.size()+1];
+        for(int i=1; i<=nums.size(); i++){
+            t[i] = INT_MAX;
+        }
+        
+        t[0] = INT_MIN;
+        
+        for(int i=0; i<nums.size(); i++){
+            
+            int idx = upper_bound(t,t+nums.size()+1,nums[i])-t;
+            if(t[idx-1]<nums[i] and t[idx]>nums[i]){
+                t[idx] = nums[i]; 
+            }
+        }
+        
+        int mx = 0;
+        for(int i=nums.size(); i>=0; i--){
+            if(t[i]!=INT_MAX){
+               mx = i;
+                break;
+            }
+        }
+        return mx;
+       
+    }
+    int lengthOfLIS(vector<int>& nums) {
+     
+        // memset(t,-1,sizeof(t));
+        return  solve(nums);
+    }
+};
